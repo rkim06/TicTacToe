@@ -10,10 +10,15 @@
  * @version: Jan 2023
  */
 
+import java.awt.*;
 import java.util.Scanner;
 
 public class TicTacToe
 {
+    private TicTacToeViewer window;
+    private static final int MAX_WIDTH = 600;
+    private static final int MAX_HEIGHT = 700;
+
     /** Board Markers **/
     public static final String X_MARKER = "X";
     public static final String O_MARKER = "O";
@@ -34,6 +39,7 @@ public class TicTacToe
 
     private Square[][] board;
     private boolean isGameOver;
+    private Image[] XOimages;
 
     /**
      * Constructor which initialized the board with BLANKs.
@@ -56,11 +62,22 @@ public class TicTacToe
         this.winner = BLANK;
         this.winIndex = -1;
         this.winDirection = -1;
+
+        this.window = new TicTacToeViewer(MAX_WIDTH, MAX_HEIGHT, board);
     }
+
 
     /******************** Methods You May Find Helpful ********************/
     public Square[][] getBoard() {
         return this.board;
+    }
+
+    public Image getXimage(){
+        return XOimages[0];
+    }
+
+    public Image getOimage(){
+        return XOimages[1];
     }
 
     public String getWinner() {
@@ -114,6 +131,7 @@ public class TicTacToe
             int row = input.nextInt();
             System.out.println("Enter your Col Pick:" );
             int col = input.nextInt();
+
             if(this.pickLocation(row, col)) {
                 this.takeTurn(row, col);
             } else {
@@ -122,6 +140,8 @@ public class TicTacToe
         }
 
         this.printBoard();
+        //repaints the board after one iteration is printed
+        this.repaint();
         this.isGameOver = true;
 
         // Determine if there was a winner

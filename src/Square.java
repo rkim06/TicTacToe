@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * A class written to support the TicTacToe Game.
  *
@@ -55,6 +57,11 @@ public class Square {
     /**
      * @return the marker for the square
      */
+
+    public void draw(Image Xs, Image Os, int x, int y, Graphics g){
+
+    }
+
     public String toString() {
         return this.marker;
     }
